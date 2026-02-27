@@ -18,11 +18,18 @@ function useDisplayPreferences(): UseDisplayPreferencesResult {
 
   useEffect(() => {
     if (data?.displayPreferences) {
-      setLocalPreferences(data.displayPreferences);
+      setLocalPreferences({
+        ...DEFAULT_DISPLAY_PREFERENCES,
+        ...data.displayPreferences,
+      });
     }
   }, [data?.displayPreferences, setLocalPreferences]);
 
-  const preferences: DisplayPreferences = data?.displayPreferences ?? localPreferences;
+  const preferences: DisplayPreferences = {
+    ...DEFAULT_DISPLAY_PREFERENCES,
+    ...localPreferences,
+    ...(data?.displayPreferences ?? {}),
+  };
 
   const updatePreferences = useCallback(
     async (updates: Partial<DisplayPreferences>): Promise<void> => {

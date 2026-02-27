@@ -50,6 +50,7 @@ function SelectionCours(): JSX.Element {
 
   const selectCoursSessionQuery = useGetCoursSession(session, programme);
   const [includeMaitrise, setIncludeMaitrise] = useState(true);
+  const [showCourseTitle, setShowCourseTitle] = useState(false);
   const [expanded, setExpanded] = useState(!!selectCoursSessionQuery?.data);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -165,12 +166,18 @@ function SelectionCours(): JSX.Element {
         </AccordionSummary>
         <Divider />
         <AccordionDetails>
-          <CoursTransferList includeMaitrise={includeMaitrise} />
+          <CoursTransferList includeMaitrise={includeMaitrise} showCourseTitle={showCourseTitle} />
           <FormControlLabel
             checked={includeMaitrise}
             onChange={() => setIncludeMaitrise(!includeMaitrise)}
             control={<Switch />}
             label={t('inclureMaitrise')}
+          />
+          <FormControlLabel
+            checked={showCourseTitle}
+            onChange={() => setShowCourseTitle(!showCourseTitle)}
+            control={<Switch />}
+            label={t('afficherTitreCours')}
           />
         </AccordionDetails>
         <Divider />

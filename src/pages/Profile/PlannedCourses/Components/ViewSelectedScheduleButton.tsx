@@ -57,7 +57,12 @@ function ViewSelectedScheduleButton({
   const hasError = getCombinaisonMutation.isError;
 
   const {
-    showNomCoursGroupe, showNomActivite, showLocaux, showModeEnseignement, showEnseignant,
+    showNomCoursGroupe,
+    showTitreCours,
+    showNomActivite,
+    showLocaux,
+    showModeEnseignement,
+    showEnseignant,
   } = preferences;
 
   return (
@@ -98,6 +103,7 @@ function ViewSelectedScheduleButton({
             disableLocaux={!showLocaux}
             disableNomActivite={!showNomActivite}
             disableNomCours={!showNomCoursGroupe}
+            disableTitreCours={!showTitreCours}
             disableModeEnseignement={!showModeEnseignement}
             disableEnseignant={!showEnseignant}
           />

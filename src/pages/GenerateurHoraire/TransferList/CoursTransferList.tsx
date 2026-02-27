@@ -47,10 +47,12 @@ const createListProperties = (
 
 interface CoursTransferListProps {
   includeMaitrise?: boolean;
+  showCourseTitle?: boolean;
 }
 
 export default function CoursTransferList({
   includeMaitrise,
+  showCourseTitle = false,
 }: CoursTransferListProps): JSX.Element {
   const { t } = useTranslation('common');
 
@@ -160,7 +162,11 @@ export default function CoursTransferList({
     const {
       id, listName, icon, filter, setFilter,
     } = properties;
-    const filterFunction = (i: Cours) => i?.sigle.toLowerCase().includes(filter.toLowerCase());
+    const normalizedFilter = filter.trim().toLowerCase();
+    const filterFunction = (i: Cours) => (
+      i?.sigle.toLowerCase().includes(normalizedFilter)
+      || i?.titre?.toLowerCase().includes(normalizedFilter)
+    );
 
     let filteredItems = filter ? items.filter(filterFunction) : items;
 
@@ -186,7 +192,7 @@ export default function CoursTransferList({
         <Typography>{title}</Typography>
         <TextField
           value={filter}
-          label={t('filtrerSigle')}
+          label={t('filtrerCours')}
           variant="standard"
           onChange={(event) => handleFilterChange(event, setFilter)}
           type="search"
@@ -201,7 +207,12 @@ export default function CoursTransferList({
               disabled={id === LEFT && right.length === NOMBRE_MAX_COURS}
             >
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={value?.sigle} />
+              <ListItemText
+                primary={value?.sigle}
+                secondary={showCourseTitle ? value?.titre : undefined}
+                primaryTypographyProps={{ noWrap: true }}
+                secondaryTypographyProps={{ noWrap: true }}
+              />
               {id === RIGHT && (
                 <IconButton
                   onClick={(e) => {

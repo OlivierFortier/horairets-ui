@@ -6,6 +6,7 @@ export type SelectedSchedulesMap = Record<string, string>;
 
 export interface DisplayPreferences {
   showNomCoursGroupe: boolean;
+  showTitreCours: boolean;
   showLocaux: boolean;
   showNomActivite: boolean;
   showUniqueCoursColors: boolean;
@@ -15,6 +16,7 @@ export interface DisplayPreferences {
 
 export const DEFAULT_DISPLAY_PREFERENCES: DisplayPreferences = {
   showNomCoursGroupe: true,
+  showTitreCours: false,
   showLocaux: true,
   showNomActivite: true,
   showUniqueCoursColors: true,
