@@ -18,7 +18,7 @@ const ActiviteWrapper = styled.div<ActiviteWrapperProps>`
   justify-content: flex-start;
   overflow: hidden;
   .wrapper {
-    overflow: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 
