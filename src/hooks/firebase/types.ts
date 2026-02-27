@@ -11,6 +11,7 @@ export interface DisplayPreferences {
   showUniqueCoursColors: boolean;
   showModeEnseignement: boolean;
   showEnseignant: boolean;
+  showTitreCours: boolean;
 }
 
 export const DEFAULT_DISPLAY_PREFERENCES: DisplayPreferences = {
@@ -20,6 +21,7 @@ export const DEFAULT_DISPLAY_PREFERENCES: DisplayPreferences = {
   showUniqueCoursColors: true,
   showModeEnseignement: false,
   showEnseignant: false,
+  showTitreCours: false,
 };
 
 export interface SessionConfig {

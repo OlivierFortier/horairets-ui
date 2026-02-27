@@ -48,6 +48,7 @@ function AffichageCombinaisons(): JSX.Element {
     preferences.showModeEnseignement,
   );
   const [showEnseignant, setShowEnseignant] = useState(preferences.showEnseignant);
+  const [showTitreCours, setShowTitreCours] = useState(preferences.showTitreCours);
 
   useEffect(() => {
     setShowNomCoursGroupe(preferences.showNomCoursGroupe);
@@ -56,6 +57,7 @@ function AffichageCombinaisons(): JSX.Element {
     setShowUniqueCoursColors(preferences.showUniqueCoursColors);
     setShowModeEnseignement(preferences.showModeEnseignement);
     setShowEnseignant(preferences.showEnseignant);
+    setShowTitreCours(preferences.showTitreCours);
   }, [preferences]);
 
   const onClose = async () => {
@@ -66,6 +68,7 @@ function AffichageCombinaisons(): JSX.Element {
       showUniqueCoursColors,
       showModeEnseignement,
       showEnseignant,
+      showTitreCours,
     });
     toast.success(t('parametresAffichageAppliques'));
   };
@@ -75,6 +78,11 @@ function AffichageCombinaisons(): JSX.Element {
       label: t('afficherNomCoursGroupe'),
       checked: showNomCoursGroupe,
       onChange: setShowNomCoursGroupe,
+    },
+    {
+      label: t('afficherTitreCours'),
+      checked: showTitreCours,
+      onChange: setShowTitreCours,
     },
     { label: t('afficherLocaux'), checked: showLocaux, onChange: setShowLocaux },
     {

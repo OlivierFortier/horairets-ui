@@ -3,7 +3,7 @@ import {
   ChevronLeft, ChevronRight, Lock, LockOpen, SwapHoriz,
 } from '@mui/icons-material';
 import {
-  IconButton, ListItemButton, ListItemIcon, TextField, Typography,
+  FormControlLabel, IconButton, ListItemButton, ListItemIcon, Switch, TextField, Typography,
 } from '@mui/material';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
@@ -71,6 +71,7 @@ export default function CoursTransferList({
   const [selectedFilter, setSelectedFilter] = useState('');
   const [unselectedFilter, setUnselectedFilter] = useState('');
   const [locked, setLocked] = useState<Cours[]>([]);
+  const [showTitles, setShowTitles] = useState(false);
 
   useEffect(() => {
     if (locked.length > (nbCours || 0)) {
@@ -160,7 +161,11 @@ export default function CoursTransferList({
     const {
       id, listName, icon, filter, setFilter,
     } = properties;
-    const filterFunction = (i: Cours) => i?.sigle.toLowerCase().includes(filter.toLowerCase());
+    const filterFunction = (i: Cours) => {
+      const lowerFilter = filter.toLowerCase();
+      return i?.sigle.toLowerCase().includes(lowerFilter)
+        || (showTitles && i?.titre?.toLowerCase().includes(lowerFilter));
+    };
 
     let filteredItems = filter ? items.filter(filterFunction) : items;
 
@@ -201,7 +206,10 @@ export default function CoursTransferList({
               disabled={id === LEFT && right.length === NOMBRE_MAX_COURS}
             >
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={value?.sigle} />
+              <ListItemText
+                primary={value?.sigle}
+                secondary={showTitles ? value?.titre : undefined}
+              />
               {id === RIGHT && (
                 <IconButton
                   onClick={(e) => {
@@ -226,10 +234,18 @@ export default function CoursTransferList({
   };
 
   return (
-    <CoursTransferListWrapper>
-      {customList(left, lists[LEFT])}
-      <SwapHoriz className="swap-icon" />
-      {customList(right, lists[RIGHT])}
-    </CoursTransferListWrapper>
+    <>
+      <CoursTransferListWrapper>
+        {customList(left, lists[LEFT])}
+        <SwapHoriz className="swap-icon" />
+        {customList(right, lists[RIGHT])}
+      </CoursTransferListWrapper>
+      <FormControlLabel
+        checked={showTitles}
+        onChange={() => setShowTitles(!showTitles)}
+        control={<Switch />}
+        label={t('afficherTitreCoursSelection')}
+      />
+    </>
   );
 }
