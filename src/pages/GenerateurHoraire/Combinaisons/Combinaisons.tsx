@@ -146,6 +146,7 @@ function Combinaisons({ combinaisons }: CombinaisonsProps): JSX.Element {
                 disableNomCours={!showNomCoursGroupe}
                 disableModeEnseignement={!showModeEnseignement}
                 disableEnseignant={!showEnseignant}
+                enableCourseDetailsDialog
               />
             </Grid>
           ))}

@@ -20,6 +20,7 @@ interface ActiviteProps {
   disableLocaux?: boolean;
   disableModeEnseignement?: boolean;
   disableEnseignant?: boolean;
+  onClick?: () => void;
 }
 
 function Activite({
@@ -32,10 +33,32 @@ function Activite({
   disableLocaux = false,
   disableModeEnseignement = true,
   disableEnseignant = true,
+  onClick,
 }: ActiviteProps): JSX.Element {
   const { t } = useTranslation('common');
+  const isClickable = !!onClick;
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!isClickable) return;
+
+    if ((event.key === 'Enter' || event.key === ' ') && onClick) {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   return (
-    <ActiviteWrapper flex={flex} borderColor={borderColor} color={color}>
+    <ActiviteWrapper
+      flex={flex}
+      borderColor={borderColor}
+      color={color}
+      isClickable={isClickable}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      aria-label={isClickable ? `Voir les détails du cours ${activite?.sigle}` : undefined}
+    >
       <div className="wrapper">
         {!disableNomCours && (
           <span>
