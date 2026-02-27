@@ -112,6 +112,8 @@
   "affichage": "Affichage",
   "parametresAffichageCombinaisons": "Paramètres d'affichage des combinaisons d'horaire",
   "afficherNomCoursGroupe": "Afficher le sigle des cours",
+  "afficherTitreCours": "Afficher le titre des cours",
+  "afficherTitreCoursSelection": "Afficher le titre des cours lors de la sélection",
   "afficherLocaux": "Afficher les locaux de cours",
   "afficherTypeActivite": "Afficher le type d'activité",
   "typesActivites": "Cours, TP, Labo, etc.",
