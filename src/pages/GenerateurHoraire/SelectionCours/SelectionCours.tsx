@@ -25,6 +25,7 @@ import {
   useGetCombinaisons,
   useGetCoursSession,
 } from '../../../features/generateur/generateurQueries';
+import { Combinaison } from '../../../features/generateur/generateur.types';
 import { areArraysSame } from '../../../utils/Array.utils';
 import { NOMBRE_MAX_COURS_PAR_HORAIRE } from '../generateurHoraire.constants';
 import useGenerateurHoraire from '../GenerateurHoraireContexts/hooks/useGenerateurHoraire';
@@ -35,6 +36,20 @@ import GenerationInformationToasts from './toasts/GenerationInformationToasts';
 import ParametresGenerationToast from './toasts/ParametresGenerationToast';
 import useUserDocument from '../../../hooks/firebase/useUserDocument';
 import { UserDocument } from '../../../hooks/firebase/types';
+
+const addMissingCourseTitles = (
+  combinaisons: Combinaison[],
+  coursTitreBySigle: Record<string, string>,
+): Combinaison[] => combinaisons.map((combinaison) => ({
+  ...combinaison,
+  groupes: combinaison.groupes.map((groupe) => ({
+    ...groupe,
+    cours: {
+      ...groupe.cours,
+      titre: groupe.cours.titre || coursTitreBySigle[groupe.cours.sigle] || '',
+    },
+  })),
+}));
 
 function SelectionCours(): JSX.Element {
   const { t } = useTranslation('common');
@@ -84,6 +99,12 @@ function SelectionCours(): JSX.Element {
   };
 
   const nombreCoursGeneration = controlledNombreCours || Math.min(cours?.length || 0, NOMBRE_MAX_COURS_PAR_HORAIRE);
+  const coursTitreBySigle = useMemo(() => (
+    selectCoursSessionQuery.data?.reduce<Record<string, string>>((acc, currentCours) => ({
+      ...acc,
+      [currentCours.sigle]: currentCours.titre,
+    }), {}) || {}
+  ), [selectCoursSessionQuery.data]);
 
   const handleGenerateCombinaisons = () => {
     const newConfig = {
@@ -111,7 +132,7 @@ function SelectionCours(): JSX.Element {
       },
       {
         onSuccess: (data) => {
-          setRawCombinaisons(data);
+          setRawCombinaisons(addMissingCourseTitles(data, coursTitreBySigle));
         },
       },
     );
