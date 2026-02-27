@@ -58,6 +58,7 @@ function ViewSelectedScheduleButton({
 
   const {
     showNomCoursGroupe, showNomActivite, showLocaux, showModeEnseignement, showEnseignant,
+    showTitreCours,
   } = preferences;
 
   return (
@@ -98,6 +99,7 @@ function ViewSelectedScheduleButton({
             disableLocaux={!showLocaux}
             disableNomActivite={!showNomActivite}
             disableNomCours={!showNomCoursGroupe}
+            disableTitreCours={!showTitreCours}
             disableModeEnseignement={!showModeEnseignement}
             disableEnseignant={!showEnseignant}
             enableCourseDetailsDialog

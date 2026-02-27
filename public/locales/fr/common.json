@@ -120,6 +120,8 @@
   "afficherModeEnseignement": "Afficher le mode d'enseignement",
   "modesEnseignements": "Présentiel, Distance, Hybride, Comodal",
   "afficherEnseignant": "Afficher le chargé de l'activité de cours",
+  "afficherTitreCours": "Afficher le titre des cours",
+  "afficherTitreCoursSelection": "Afficher les titres des cours",
   "PRESENTIEL": "Présentiel",
   "DISTANCE": "Distance",
   "HYBRIDE": "Hybride",

@@ -41,6 +41,7 @@ function Combinaisons({ combinaisons }: CombinaisonsProps): JSX.Element {
   const { preferences } = useDisplayPreferences();
   const {
     showNomCoursGroupe, showNomActivite, showLocaux, showModeEnseignement, showEnseignant,
+    showTitreCours,
   } = preferences;
 
   const isGrid = view === GENERATEUR_GRID_VIEW;
@@ -144,6 +145,7 @@ function Combinaisons({ combinaisons }: CombinaisonsProps): JSX.Element {
                 disableLocaux={!showLocaux}
                 disableNomActivite={!showNomActivite}
                 disableNomCours={!showNomCoursGroupe}
+                disableTitreCours={!showTitreCours}
                 disableModeEnseignement={!showModeEnseignement}
                 disableEnseignant={!showEnseignant}
                 enableCourseDetailsDialog

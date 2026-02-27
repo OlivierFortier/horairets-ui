@@ -3,6 +3,7 @@ import ActiviteWrapper from './Activite.styles';
 
 interface ActiviteData {
   sigle: string;
+  titre?: string;
   numeroGroupe: string | number;
   modeEnseignement: string;
   charges: string[];
@@ -16,6 +17,7 @@ interface ActiviteProps {
   borderColor: string;
   color: string;
   disableNomCours?: boolean;
+  disableTitreCours?: boolean;
   disableNomActivite?: boolean;
   disableLocaux?: boolean;
   disableModeEnseignement?: boolean;
@@ -29,6 +31,7 @@ function Activite({
   borderColor,
   color,
   disableNomCours = false,
+  disableTitreCours = true,
   disableNomActivite = false,
   disableLocaux = false,
   disableModeEnseignement = true,
@@ -68,6 +71,9 @@ function Activite({
               {activite?.numeroGroupe}
             </strong>
           </span>
+        )}
+        {!disableTitreCours && activite?.titre && (
+          <span style={{ fontSize: '0.85em' }}>{activite.titre}</span>
         )}
         {!disableModeEnseignement && <span>{t(activite?.modeEnseignement)}</span>}
         {!disableEnseignant && <span>{t(activite?.charges?.join(','))}</span>}
