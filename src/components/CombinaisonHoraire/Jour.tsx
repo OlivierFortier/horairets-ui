@@ -49,6 +49,7 @@ interface JourProps {
   disableNomCours?: boolean;
   disableNomActivite?: boolean;
   disableLocaux?: boolean;
+  disableTitreCours?: boolean;
   disableModeEnseignement?: boolean;
   disableEnseignant?: boolean;
   forceLegacyColors?: boolean;
@@ -58,6 +59,7 @@ interface JourProps {
 interface MappedActivite extends ActiviteObj {
   numeroGroupe: string | number;
   sigle: string;
+  titre?: string;
 }
 
 const getLegacyColors = (sigle: string, sigles: string[]) => {
@@ -77,6 +79,7 @@ function Jour({
   disableNomCours = false,
   disableNomActivite = false,
   disableLocaux = false,
+  disableTitreCours = true,
   disableModeEnseignement = true,
   disableEnseignant = true,
   forceLegacyColors = false,
@@ -97,6 +100,7 @@ function Jour({
       ...act,
       numeroGroupe: curr?.numeroGroupe,
       sigle: curr?.cours?.sigle,
+      titre: curr?.cours?.titre,
     }));
 
     return [...prev, ...(mapped || [])];
@@ -136,6 +140,7 @@ function Jour({
         borderColor={borderColor}
         disableNomActivite={disableNomActivite}
         disableNomCours={disableNomCours}
+        disableTitreCours={disableTitreCours}
         disableLocaux={disableLocaux}
         disableModeEnseignement={disableModeEnseignement}
         disableEnseignant={disableEnseignant}

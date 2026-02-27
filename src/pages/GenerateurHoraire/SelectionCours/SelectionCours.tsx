@@ -30,6 +30,7 @@ import { NOMBRE_MAX_COURS_PAR_HORAIRE } from '../generateurHoraire.constants';
 import useGenerateurHoraire from '../GenerateurHoraireContexts/hooks/useGenerateurHoraire';
 import ParametresDialog from '../ParametresDialog/ParametresDialog';
 import CoursTransferList from '../TransferList/CoursTransferList';
+import { useDisplayPreferences } from '../../../hooks/firebase';
 import SelectionCoursWrapper from './SelectionCours.styles';
 import GenerationInformationToasts from './toasts/GenerationInformationToasts';
 import ParametresGenerationToast from './toasts/ParametresGenerationToast';
@@ -65,6 +66,7 @@ function SelectionCours(): JSX.Element {
   } = useGenerateurHoraire();
 
   const { data: userDoc } = useUserDocument<UserDocument>();
+  const { preferences, updatePreferences } = useDisplayPreferences();
 
   const plannedSession = useMemo(() => {
     if (!userDoc?.profile?.sessions || !session) return null;
@@ -165,12 +167,23 @@ function SelectionCours(): JSX.Element {
         </AccordionSummary>
         <Divider />
         <AccordionDetails>
-          <CoursTransferList includeMaitrise={includeMaitrise} />
+          <CoursTransferList
+            includeMaitrise={includeMaitrise}
+            showTitreCours={preferences.showTitreCoursInSelection}
+          />
           <FormControlLabel
             checked={includeMaitrise}
             onChange={() => setIncludeMaitrise(!includeMaitrise)}
             control={<Switch />}
             label={t('inclureMaitrise')}
+          />
+          <FormControlLabel
+            checked={preferences.showTitreCoursInSelection}
+            onChange={() => updatePreferences({
+              showTitreCoursInSelection: !preferences.showTitreCoursInSelection,
+            })}
+            control={<Switch />}
+            label={t('afficherTitreCoursSelection')}
           />
         </AccordionDetails>
         <Divider />

@@ -47,10 +47,12 @@ const createListProperties = (
 
 interface CoursTransferListProps {
   includeMaitrise?: boolean;
+  showTitreCours?: boolean;
 }
 
 export default function CoursTransferList({
   includeMaitrise,
+  showTitreCours = false,
 }: CoursTransferListProps): JSX.Element {
   const { t } = useTranslation('common');
 
@@ -201,7 +203,10 @@ export default function CoursTransferList({
               disabled={id === LEFT && right.length === NOMBRE_MAX_COURS}
             >
               <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={value?.sigle} />
+              <ListItemText
+                primary={value?.sigle}
+                secondary={showTitreCours ? value?.titre : undefined}
+              />
               {id === RIGHT && (
                 <IconButton
                   onClick={(e) => {

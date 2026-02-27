@@ -8,6 +8,7 @@ interface ActiviteData {
   charges: string[];
   nom: string;
   locaux: string[];
+  titre?: string;
 }
 
 interface ActiviteProps {
@@ -18,6 +19,7 @@ interface ActiviteProps {
   disableNomCours?: boolean;
   disableNomActivite?: boolean;
   disableLocaux?: boolean;
+  disableTitreCours?: boolean;
   disableModeEnseignement?: boolean;
   disableEnseignant?: boolean;
   onClick?: () => void;
@@ -31,6 +33,7 @@ function Activite({
   disableNomCours = false,
   disableNomActivite = false,
   disableLocaux = false,
+  disableTitreCours = true,
   disableModeEnseignement = true,
   disableEnseignant = true,
   onClick,
@@ -68,6 +71,9 @@ function Activite({
               {activite?.numeroGroupe}
             </strong>
           </span>
+        )}
+        {!disableTitreCours && activite?.titre && (
+          <span className="titre-cours">{activite.titre}</span>
         )}
         {!disableModeEnseignement && <span>{t(activite?.modeEnseignement)}</span>}
         {!disableEnseignant && <span>{t(activite?.charges?.join(','))}</span>}

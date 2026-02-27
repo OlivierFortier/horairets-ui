@@ -46,6 +46,7 @@ interface CombinaisonHoraireProps {
   disableNomCours?: boolean;
   disableNomActivite?: boolean;
   disableLocaux?: boolean;
+  disableTitreCours?: boolean;
   disableModeEnseignement?: boolean;
   disableEnseignant?: boolean;
   combinaison: Combinaison;
@@ -59,6 +60,7 @@ function CombinaisonHoraire({
   disableNomCours = false,
   disableNomActivite = false,
   disableLocaux = false,
+  disableTitreCours = true,
   disableModeEnseignement = true,
   disableEnseignant = true,
   combinaison,
@@ -102,6 +104,7 @@ function CombinaisonHoraire({
               disableNomJours={disableNomJours}
               disableNomActivite={disableNomActivite}
               disableNomCours={disableNomCours}
+              disableTitreCours={disableTitreCours}
               disableLocaux={disableLocaux}
               disableModeEnseignement={disableModeEnseignement}
               disableEnseignant={disableEnseignant}
