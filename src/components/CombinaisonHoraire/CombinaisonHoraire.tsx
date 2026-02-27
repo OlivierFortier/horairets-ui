@@ -116,12 +116,12 @@ function CombinaisonHoraire({
           </Grid>
         ))}
       </Grid>
-      {enableCourseDetailsDialog && (
+      {enableCourseDetailsDialog && selectedCourse && (
         <CourseDetailsDialog
-          open={!!selectedCourse}
-          sigle={selectedCourse?.sigle || null}
+          open
+          sigle={selectedCourse.sigle}
           session={session}
-          groupe={selectedCourse?.groupe}
+          groupe={selectedCourse.groupe}
           onClose={() => setSelectedCourse(null)}
           activator={<></>}
         />
