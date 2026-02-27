@@ -5,6 +5,7 @@ interface ActiviteWrapperProps {
   flex: number;
   borderColor: string;
   color: string;
+  isClickable?: boolean;
 }
 
 const ActiviteWrapper = styled.div<ActiviteWrapperProps>`
@@ -50,6 +51,7 @@ const ActiviteWrapper = styled.div<ActiviteWrapperProps>`
 
     text-shadow: #000 0px 2px 2px;
     -webkit-font-smoothing: antialiased;
+    cursor: ${(props) => (props.isClickable ? 'pointer' : 'default')};
   }
 `;
 

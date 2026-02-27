@@ -52,6 +52,7 @@ interface JourProps {
   disableModeEnseignement?: boolean;
   disableEnseignant?: boolean;
   forceLegacyColors?: boolean;
+  onActiviteClick?: (sigle: string, groupe: string | number) => void;
 }
 
 interface MappedActivite extends ActiviteObj {
@@ -79,6 +80,7 @@ function Jour({
   disableModeEnseignement = true,
   disableEnseignant = true,
   forceLegacyColors = false,
+  onActiviteClick,
 }: JourProps): JSX.Element {
   const { t } = useTranslation('common');
 
@@ -137,6 +139,9 @@ function Jour({
         disableLocaux={disableLocaux}
         disableModeEnseignement={disableModeEnseignement}
         disableEnseignant={disableEnseignant}
+        onClick={onActiviteClick
+          ? () => onActiviteClick(activite.sigle, activite.numeroGroupe)
+          : undefined}
       />
     );
   };

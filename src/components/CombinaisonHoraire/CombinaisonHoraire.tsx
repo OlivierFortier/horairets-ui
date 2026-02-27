@@ -1,5 +1,8 @@
 import { Grid } from '@mui/material';
+import React, { useMemo, useState } from 'react';
 import { JOURS } from '../../pages/GenerateurHoraire/generateurHoraire.constants';
+import { getSessionFromCombinaisonUniqueId } from '../../utils/Sessions.utils';
+import CourseDetailsDialog from '../Dialogs/CourseDetailsDialog';
 import CombinaisonHoraireWrapper from './CombinaisonHoraire.styles';
 import { HEURE_DEBUT_COURS, HEURE_FIN_COURS } from './CombinasonHoraire.constants';
 import Jour from './Jour';
@@ -47,6 +50,7 @@ interface CombinaisonHoraireProps {
   disableEnseignant?: boolean;
   combinaison: Combinaison;
   forceLegacyColors?: boolean;
+  enableCourseDetailsDialog?: boolean;
 }
 
 function CombinaisonHoraire({
@@ -59,8 +63,19 @@ function CombinaisonHoraire({
   disableEnseignant = true,
   combinaison,
   forceLegacyColors = false,
+  enableCourseDetailsDialog = false,
 }: CombinaisonHoraireProps): JSX.Element {
   const jours = JOURS;
+
+  const [selectedCourse, setSelectedCourse] = useState<{
+    sigle: string;
+    groupe: string;
+  } | null>(null);
+
+  const session = useMemo(
+    () => getSessionFromCombinaisonUniqueId(combinaison.uniqueId),
+    [combinaison.uniqueId],
+  );
 
   const heures = [...Array(HEURE_FIN_COURS - HEURE_DEBUT_COURS + 1).keys()].map(
     (v) => v + HEURE_DEBUT_COURS,
@@ -91,10 +106,26 @@ function CombinaisonHoraire({
               disableModeEnseignement={disableModeEnseignement}
               disableEnseignant={disableEnseignant}
               forceLegacyColors={forceLegacyColors}
+              onActiviteClick={enableCourseDetailsDialog
+                ? (sigle, groupe) => setSelectedCourse({
+                  sigle,
+                  groupe: String(groupe),
+                })
+                : undefined}
             />
           </Grid>
         ))}
       </Grid>
+      {enableCourseDetailsDialog && (
+        <CourseDetailsDialog
+          open={!!selectedCourse}
+          sigle={selectedCourse?.sigle || null}
+          session={session}
+          groupe={selectedCourse?.groupe}
+          onClose={() => setSelectedCourse(null)}
+          activator={<></>}
+        />
+      )}
     </CombinaisonHoraireWrapper>
   );
 }

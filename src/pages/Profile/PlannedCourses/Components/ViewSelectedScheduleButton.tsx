@@ -100,6 +100,7 @@ function ViewSelectedScheduleButton({
             disableNomCours={!showNomCoursGroupe}
             disableModeEnseignement={!showModeEnseignement}
             disableEnseignant={!showEnseignant}
+            enableCourseDetailsDialog
           />
         )}
 
